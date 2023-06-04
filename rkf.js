@@ -11,10 +11,9 @@ function rkf(f, y0, t0, h0, tf, resultados = [], logCallback) {
             CH= [16 / 135, 0, 6656 / 12825, 28561 / 56430, -9 / 50, 2 / 55]
             CT= [-1 / 360, 0, 128 / 4275, 2197 / 75240, -1 / 50, -2 / 55];
 
-    let t = t0, y = [...y0], h = h0,
-    itSuc=0, itTot=0, itMax = 50000000;
+    let t = t0, y = [...y0], h = h0;
 
-    while(t < tf && (itTot < itMax || 100*t/tf > 90)) { 
+    while(t < tf) { 
         h = Math.min(h, tf - t, 0.001*(tf - t0))
 
         let k = Array.from({ length: 6 }, () => new Array(f.length)), 
@@ -38,10 +37,10 @@ function rkf(f, y0, t0, h0, tf, resultados = [], logCallback) {
                 y[j] = CH.reduce( (sum, CHm, m)=> {return (sum + CHm*k[m][j])}, y[j])
             } // Resultado de 5° Ordem
 
-            logCallback({ t, y: [...y] }, {t, h, itSuc, itTot, itMax})
+            logCallback({ t, y: [...y] }, {t, h})
 
-                     h *= 3;    itSuc++;
-        } else {     h *= 0.5;} itTot++;
+                     h *= 3;
+        } else {     h *= 0.5;}
     } return resultados;
 }
 
