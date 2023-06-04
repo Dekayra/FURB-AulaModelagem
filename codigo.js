@@ -110,7 +110,6 @@ function realizarCalculos(){
         }
         if(Date.now() - logTime > 250 || !isRKF) {logTime = Date.now()
             if(isRKF){
-                console.log(`i= ${info.itSuc}/${info.itTot}/${info.itMax}`);
                 console.log(`t= ${(info.t).toFixed(4)}s\t\t${(info.t*100/tf).toFixed(4)}%\t\th=${info.h.toFixed(4)}`);
             } else { console.log(`Condições Finais:`)} 
             console.log(`Tanque 1: C=${resultado.y[0].toFixed(6)} T=${(resultado.y[1]-273.15).toFixed(6)} °C`)
